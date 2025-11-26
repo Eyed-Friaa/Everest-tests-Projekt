@@ -1,0 +1,6 @@
+"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
+"","7403","Energy Charged erhöht sich nach dem Ladestart","","Sun Nov 02 15:26:22 CET 2025","failed","Sun Nov 02 15:26:29 CET 2025","","Energy Charged Validierung","",""
+"","12321","Car Simulation mit AC RCD Error und Pause/Resume","","Sun Nov 02 15:25:44 CET 2025","failed","Sun Nov 02 15:25:56 CET 2025","","Car Simulation und Pause/Resume Test","",""
+"","12364","AC Diode Fail verursacht Temperatur-Störung und verhindert Laden","","Sun Nov 02 15:25:30 CET 2025","failed","Sun Nov 02 15:25:42 CET 2025","","AC Diode Fail Test mit Temperatur-Überwachung","",""
+"","34108","Car Simulation mit AC Diode Fail und AC 3ph 16A, dann Pause/Resume","","Sun Nov 02 01:14:46 CET 2025","failed","Sun Nov 02 01:15:20 CET 2025","","Car Simulation und Pause/Resume Test","",""
+"","22351","Vollständiger Ladezyklus - Plugin anschließen und ausstecken","","Sun Nov 02 15:25:58 CET 2025","passed","Sun Nov 02 15:26:20 CET 2025","","Car Plugin Ladevorgang-Test","",""
