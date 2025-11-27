@@ -1,13 +1,13 @@
 # Automatisiertes Testframework für EVerest – Bachelorarbeit
 
-Dieses Repository beinhaltet das im Rahmen der Bachelorarbeit entwickelte Testframework zur Validierung des EVerest-Ladesystems. Es kombiniert automatisierte End-to-End-Tests mit Cypress und Cucumber, API-Tests über Maven sowie ein Python-basiertes interaktives Tool zur Analyse von MQTT-Kommunikation, Ladezuständen und Systemreaktionen. Zusätzlich werden Allure Reports zur standardisierten Testauswertung eingesetzt.
+Dieses Repository enthält das im Rahmen der Bachelorarbeit entwickelte Testframework zur systematischen Validierung des EVerest-Ladesystems. Das Framework kombiniert mehrere automatisierte Testansätze: End-to-End-Tests mit Cypress und Cucumber, API-Tests auf Basis von Maven und Java, ein Python-basiertes Werkzeug zur Analyse der MQTT-Kommunikation sowie Postman-Sammlungen zur ergänzenden Schnittstellenprüfung. Alle Testkomponenten werden durch Allure Reports konsistent dokumentiert und ausgewertet.
 
-Das Framework ermöglicht die automatisierte Prüfung von:
-
-- Ladeprozess und Benutzerinteraktionen in der EVerest-UI (Cypress)
-- Backend- und API-Funktionalitäten (Maven/Java)
-- MQTT-basierter Kommunikation und Ladezyklusverhalten (Python)
-- Konsistenz von Zustandswechseln, Fehlererkennung und Echtzeitüberwachung
+Das Testframework ermöglicht die automatisierte Prüfung von:
+- Benutzerinteraktionen und Ladeverhalten in der EVerest-UI (Cypress/Cucumber)
+- Backend- und API-Funktionalitäten des Ladesystems (Maven/Java)
+- MQTT-basierter Systemkommunikation, Fehlerereignissen und Ladezyklen (Python)
+- Postman-API-Collections zur strukturierten Validierung einzelner Schnittstellen
+- Konsistenz und Stabilität von Zustandswechseln, Fehlererkennung und Systemreaktionen
 
 ---
 
@@ -19,25 +19,26 @@ Das Framework ermöglicht die automatisierte Prüfung von:
     *.feature
   /support
   carPluginSteps.js
+
 /mvn-tests
   EverestFullApiTests.java
+
 /python
   interactive_everest_test.py
+
+/postman
+  EVerest-Demo-Core-Tests.postman_collection.json
+  EVerest-Demo-API.postman_collection.json
+  EVerest-Demo-Local.postman_environment.json
 ```
 
 ---
 
 ## 1. End-to-End-Tests mit Cypress, Cucumber und Allure
 
-Die UI-Tests überprüfen das Verhalten der EVerest-Ladeoberfläche, insbesondere:
+Die End-to-End-Tests überprüfen das Verhalten der Benutzeroberfläche entlang realer Ladeszenarien, darunter das Aktivieren und Deaktivieren des Car Plugins, die Überwachung des Ladefortschritts sowie die Validierung der Leistungsanzeigen.
 
-- Aktivieren und Deaktivieren des Car Plugins
-- Überwachung des Ladefortschritts
-- Validierung von kW-Anzeigen
-- Sicherstellung, dass aktive Ladevorgänge korrekt erfasst werden
-
-### Beispiel für Step Definitions  
-Quelle: :contentReference[oaicite:0]{index=0}
+### Beispiel einer Step Definition
 
 ```js
 When('der Benutzer das Car Plugin aktiviert', () => {
@@ -56,7 +57,7 @@ npm install
 npx cypress open
 ```
 
-### Headless-Testausführung mit Allure
+### Headless-Testausführung und Allure Report
 
 ```
 npm run test
@@ -68,10 +69,9 @@ npm run allure:open
 
 ## 2. API-Tests mit Maven und Java
 
-Die Datei `EverestFullApiTests.java` umfasst API-Testfälle zur Überprüfung von Backend-Funktionalitäten, beispielsweise zur Erstellung und Verwaltung von Ladesessions oder Statusabfragen.
+Die Datei `EverestFullApiTests.java` umfasst API-Testfälle zur Überprüfung der Backend-Schnittstellen. Diese Tests validieren unter anderem das Session-Handling, Ladezustände und allgemeine Systemreaktionen.
 
-Beispiel (verkürzt):  
-Quelle: 
+### Beispiel (verkürzt)
 
 ```java
 public class EverestFullApiTests {
@@ -98,39 +98,40 @@ mvn allure:serve
 
 ## 3. Interaktiver Python-Tester zur Analyse von MQTT-Ladeprozessen
 
-Das Python-Skript `interactive_everest_test.py` ermöglicht eine detaillierte Analyse der Ladeprozesse im EVerest-System und bietet:
+Das Python-Skript `interactive_everest_test.py` dient der Echtzeitanalyse der Ladeinfrastruktur. Es überwacht MQTT-Nachrichten, identifiziert Zustandsänderungen, dokumentiert Ladezyklen und unterstützt manuelle Interaktionen über Node-RED.
 
-- Live-Monitoring von MQTT-Nachrichten
-- Erkennung von Zustandsänderungen des Ladesystems
-- Dokumentation kompletter Ladezyklen
-- Erfassung relevanter Fehlerzustände
-- Integration der Node-RED Oberfläche
-- Echtzeitstatistiken und interaktive Steuerung
-
-Beispiel: Zustandsüberwachung  
-Quelle: :contentReference[oaicite:2]{index=2}
+### Beispiel zur Zustandsüberwachung
 
 ```python
 if "session_info" in msg.topic and "state" in str(data):
     self.handle_state_change(msg.topic, data)
 ```
 
-Start des Tools:
+### Ausführung des Tools
 
 ```
 python3 interactive_everest_test.py
 ```
 
-Das Tool bietet ein interaktives Terminalmenü, mit dem Statistiken, Ladezyklen, Fehlerberichte und Performancekennzahlen abgerufen werden können.
+Das Tool stellt ein interaktives Terminalmenü bereit, über das Statistiken, Ladezyklen, Fehlerberichte und Performanceindikatoren abgerufen werden können.
 
 ---
 
-## 4. Allure-Reporting
+## 4. Postman Collections
 
-Das Framework verwendet Allure zur konsistenten Dokumentation und Visualisierung der Testergebnisse aus:
+Das Projekt enthält mehrere Postman-Sammlungen zur strukturierten API-Validierung:
 
-- Cypress-E2E-Tests
-- Maven-API-Tests
+- EVerest-Demo-Core-Tests.postman_collection.json  
+- EVerest-Demo-API.postman_collection.json  
+- EVerest-Demo-Local.postman_environment.json  
+
+Diese Dateien können direkt in Postman importiert werden.
+
+---
+
+## 5. Allure Reporting
+
+Alle Testarten erzeugen Allure-kompatible Ergebnisdateien, welche eine zentrale und transparente Auswertung der Testergebnisse ermöglichen.
 
 ### Installation der Allure-CLI
 
@@ -149,12 +150,13 @@ allure open
 
 ## Voraussetzungen
 
-- Node.js 18 oder höher  
-- Java 17 und Maven  
-- Python 3.10 oder höher  
-- MQTT-Broker (z. B. Mosquitto)  
-- Laufende EVerest-Instanz  
-- Node-RED Dashboard  
+- Node.js 18 oder höher
+- Java 17 und Maven
+- Python 3.10 oder höher
+- MQTT-Broker wie Mosquitto
+- EVerest-Ladeinfrastruktur
+- Node-RED Dashboard
+- Postman (optional)
 
 ---
 
@@ -191,8 +193,7 @@ pip3 install -r requirements.txt
 
 ## BDD-Features
 
-Ein Auszug eines Feature-Files:  
-Quelle: 
+Beispiel eines Feature-Files:
 
 ```
 Scenario: AC-Diode Fail Temperature
@@ -205,13 +206,7 @@ Scenario: AC-Diode Fail Temperature
 
 ## Zielsetzung der Arbeit
 
-Ziel dieses Testframeworks ist die systematische und reproduzierbare Validierung der EVerest-Ladeinfrastruktur. Dazu gehören:
-
-- Sicherstellung korrekter UI-, API- und MQTT-Kommunikation  
-- Automatisierte Ladezyklus-Analyse  
-- Erkennung und Klassifikation relevanter Fehlermeldungen  
-- Strukturierte Testberichterstattung mittels Allure  
-- Ganzheitliche Bewertung des Systemverhaltens unter realitätsnahen Bedingungen  
+Ziel dieses Testframeworks ist die reproduzierbare und umfassende Validierung der EVerest-Ladeinfrastruktur. Dies umfasst die Prüfung der Kommunikationswege zwischen UI, Backend und MQTT, die Analyse kompletter Ladezyklen sowie die automatisierte Erkennung von Fehlerzuständen. Durch die Integration aller Testmethoden in ein konsistentes Reporting wird eine fundierte Bewertung der Systemstabilität und -funktionalität unter praxisnahen Bedingungen ermöglicht.
 
 ---
 
