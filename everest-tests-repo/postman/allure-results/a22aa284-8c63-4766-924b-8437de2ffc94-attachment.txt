@@ -1,0 +1,1 @@
+level: log, messages: {"request_id":"f61f8d02-9b7d-49ad-bd73-08ec075df358","request_name":"Get Node-RED Settings","status_code":200,"response_time":5,"timestamp":"2025-11-01T21:10:25.259Z","success":true}

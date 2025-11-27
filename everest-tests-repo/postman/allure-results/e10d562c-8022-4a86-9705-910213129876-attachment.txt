@@ -1,0 +1,1 @@
+level: log, messages: {"request_id":"a0c444ca-b368-41db-b963-c2f486f6024c","request_name":"Admin Panel - Config Endpoint","timestamp":"2025-11-01T21:10:25.332Z","success":false}

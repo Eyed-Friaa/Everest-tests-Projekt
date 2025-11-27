@@ -1,0 +1,14 @@
+// Globale Pre-Request-Logik
+// Timestamp für Request-Tracking
+if (!pm.environment.get('request_count')) {
+    pm.environment.set('request_count', 0);
+}
+pm.environment.set('request_count', parseInt(pm.environment.get('request_count')) + 1);
+
+// Session-ID für Request-Zuordnung
+if (!pm.environment.get('session_id')) {
+    pm.environment.set('session_id', pm.variables.replaceIn('{{$guid}}'));
+}
+
+// Request-ID generieren
+pm.environment.set('current_request_id', pm.variables.replaceIn('{{$guid}}'));

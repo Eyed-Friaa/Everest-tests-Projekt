@@ -1,0 +1,27 @@
+// Globale Test-Logik
+// Response-Zeit für alle Requests protokollieren
+const globalResponseTime = pm.response.responseTime;
+
+// Metriken für Allure-Reporting
+console.log(JSON.stringify({
+    request_id: pm.environment.get('current_request_id'),
+    request_name: pm.info.requestName,
+    status_code: pm.response.code,
+    response_time: globalResponseTime,
+    timestamp: new Date().toISOString(),
+    success: pm.response.code >= 200 && pm.response.code < 300
+}));
+
+// Test-Ergebnisse für Reporting sammeln
+if (!pm.environment.get('test_results')) {
+    pm.environment.set('test_results', JSON.stringify([]));
+}
+
+const testResults = JSON.parse(pm.environment.get('test_results'));
+testResults.push({
+    request: pm.info.requestName,
+    status: pm.response.code,
+    responseTime: globalResponseTime,
+    timestamp: new Date().toISOString()
+});
+pm.environment.set('test_results', JSON.stringify(testResults));

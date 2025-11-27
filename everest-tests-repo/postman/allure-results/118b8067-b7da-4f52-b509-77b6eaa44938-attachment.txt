@@ -1,0 +1,1 @@
+level: log, messages: {"request_id":"638b21c9-fc0e-48df-a3d9-ea89c657a61d","request_name":"Malformed Request","status_code":400,"response_time":2,"timestamp":"2025-11-01T21:10:25.396Z","success":false}

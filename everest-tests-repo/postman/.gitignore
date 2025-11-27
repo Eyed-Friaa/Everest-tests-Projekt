@@ -1,0 +1,12 @@
+# Newman Reports
+newman-reports/
+*.json
+
+# Allure Results (werden in Parent-Verzeichnis gespeichert)
+# allure-results-postman/
+
+# Logs
+*.log
+
+# Node modules (falls lokal installiert)
+node_modules/

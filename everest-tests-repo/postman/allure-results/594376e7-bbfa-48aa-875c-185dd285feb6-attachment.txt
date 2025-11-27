@@ -1,0 +1,1 @@
+level: log, messages: {"request_id":"17f1fe09-1ded-4668-bdac-8c3aa3c3c71e","request_name":"Health Check - Node-RED","status_code":200,"response_time":23,"timestamp":"2025-11-18T15:47:49.444Z","success":true}
